@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog 1</title>
+    <style>
+        body {
+            background-color: #f0f0f0;
+            color: #333;
+        }
+
+        .article-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        .like-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 8px 16px;
+            border: none;
+            cursor: pointer;
+        }
+
+        .like-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .like-count {
+            margin-left: 10px;
+            color: #333;
+        }
+
+        .comments-section {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    </header>
+
+    <main>
+        <article class="blog-post" id="blog1">
+            <h2>The Journey into Web Development</h2>
+            <p>Embarking on the exciting journey into web development has been a thrilling experience. Learning HTML, CSS, and JavaScript opened up a new world of possibilities.</p>
+            <div class="like-section">
+                <button class="like-btn" onclick="toggleLike('blog1')">Like</button>
+                <span class="like-count" id="likeCount">0 likes</span>
+            </div>
+            <div class="comments-section">
+                <h3>Comments</h3>
+                <p>Great blog! Keep up the good work!</p>
+                <p>Looking forward to reading more about your web development journey.</p>
+            </div>
+        </article>
+    </main>
+    <script>
+        function toggleLike(blogId) {
+            const likeBtn = document.querySelector(`#${blogId} .like-btn`);
+            const likeCount = document.querySelector(`#${blogId} .like-count`);
+
+            let currentLikes = parseInt(localStorage.getItem(blogId)) || 0;
+
+            if (likeBtn.classList.contains('liked')) {
+                likeBtn.classList.remove('liked');
+                currentLikes = Math.max(0, currentLikes - 1); // Ensure likes don't go below 0
+            } else {
+                likeBtn.classList.add('liked');
+                currentLikes++;
+            }
+
+            likeCount.innerText = `${currentLikes} ${currentLikes === 1 ? 'like' : 'likes'}`;
+            localStorage.setItem(blogId, currentLikes.toString());
+        }
+        document.addEventListener('DOMContentLoaded', function() {
+            const likeCount = document.getElementById('likeCount');
+            const currentLikes = parseInt(localStorage.getItem('blog1')) || 0;
+            likeCount.innerText = `${currentLikes} ${currentLikes === 1 ? 'like' : 'likes'}`;
+        });
+    </script>
+</body>
+</html>
